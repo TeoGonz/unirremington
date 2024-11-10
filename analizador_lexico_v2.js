@@ -221,23 +221,19 @@ while (i < caracteres.length) {
     }
 }
 
+const acciones = {
+    L: () => console.log("Elemento 'L' procesado: #7Desapilado y retenido."),
+    S: () => console.log("Elemento 'S' procesado: #11Desapilado y retenido."),
+};
 
 while (pila.length > 0) {
-    const elemento = pila[pila.length - 1]; // Obtener el último elemento de la pila
-
-    switch (elemento) {
-        case 'L':
-            pila.pop();  // Desapilar el último elemento
-            console.log(`Elemento 'L' procesado: #7Desapilado y retenido.`);
-            break;
-        case 'S':
-            pila.pop();  // Desapilar el último elemento
-            console.log(`Elemento 'S' procesado: #11Desapilado y retenido.`);
-            break;
-        default:
-            console.log(`Rechazo: El elemento '${elemento}' no es válido.`);
-            pila = [];  // Vaciar la pila para indicar rechazo y salir del ciclo
-            break;
+    const elemento = pila[pila.length - 1];
+    if (acciones[elemento]) {
+        pila.pop(); // Desapilamos el elemento
+        acciones[elemento](); // Ejecutamos la acción correspondiente
+    } else {
+        console.log(`Rechazo: El elemento '${elemento}' no es válido.`);
+        pila = []; // Vaciamos la pila para indicar rechazo y salir del ciclo
     }
 }
 
@@ -247,7 +243,5 @@ if (pila.length == 0) {
 } else {
     console.log("\nLa pila no está vacía después de procesar la cadena. La cadena fue rechazada.");
 }
-
-
 
 console.log("\nResultado final de la pila:", pila);
